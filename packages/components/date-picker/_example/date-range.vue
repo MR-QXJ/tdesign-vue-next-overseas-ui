@@ -1,5 +1,5 @@
 <template>
-  <t-space direction="vertical">
+  <t-space direction="vertical" style="width: 240px">
     <t-date-range-picker
       allow-input
       clearable

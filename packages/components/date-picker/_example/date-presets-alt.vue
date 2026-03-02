@@ -1,5 +1,5 @@
 <template>
-  <t-space direction="vertical">
+  <t-space direction="vertical" style="width: 240px">
     <t-date-range-picker v-model="range1" :presets="presets" />
     <t-date-range-picker v-model="range2" :presets="presets" enable-time-picker />
   </t-space>

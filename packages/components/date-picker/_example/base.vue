@@ -1,5 +1,5 @@
 <template>
-  <t-space direction="vertical">
+  <t-space direction="vertical" style="width: 240px">
     <t-date-picker
       v-model="date2"
       @change="handleChange"

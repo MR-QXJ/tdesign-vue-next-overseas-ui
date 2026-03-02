@@ -1,0 +1,793 @@
+// 组件允许单个组件打包,因此默认引入公共基础样式
+
+@import '../../../../overseas/style/base.less';
+@import './_var.less';
+@import './_mixin.less';
+@import '../../../../common/style/web/mixins/_reset.less';
+
+.t-date-picker,
+.t-date-range-picker {
+  display: inline-flex;
+  width: 100%;
+  .reset;
+
+  .t-select-input {
+    .t-input {
+      padding: 0 8px !important;
+
+      &:is(.t-is-disabled) {
+        background-color: #f0f1f2;
+
+        &:hover {
+          border-color: var(--td-gray-color-4);
+        }
+
+        .t-input__suffix > .t-icon {
+          cursor: not-allowed;
+          color: #a1aab3;
+        }
+      }
+
+      .t-input__prefix {
+        width: unset;
+        flex-wrap: unset;
+      }
+      .t-input__suffix {
+        z-index: 10;
+        top: -2px;
+      }
+
+      .t-input__inner::placeholder {
+        color: inherit;
+      }
+    }
+
+    &.t-select-input--popup-visible {
+      .t-input {
+        border-width: 2px;
+      }
+    }
+  }
+
+  .t-range-input {
+    height: 40px;
+
+    &:is(:focus, .t-is-focused) {
+      border-width: 2px;
+      box-shadow: none;
+    }
+
+    .t-input:not(.t-is-disabled):is(:hover, .t-is-focused) {
+      background-color: #fff;
+    }
+  }
+
+  .t-range-input-popup--visible {
+    .t-range-input {
+      border-width: 2px;
+    }
+  }
+
+  .t-input__inner::placeholder {
+    color: var(--td-text-color-primary);
+  }
+
+  .t-range-input__suffix {
+    cursor: pointer;
+  }
+
+  &.t-datetime-picker {
+    max-width: 324px;
+
+    .t-input__inner {
+      min-width: 190px;
+    }
+  }
+
+  &.t-datetime-range-picker {
+    max-width: 324px;
+    .t-input__inner {
+      min-width: 130px;
+    }
+  }
+
+  .t-select-input .t-input:has(.t-input__prefix):not(.t-input--focused) input {
+    display: inline-block;
+  }
+
+  .t-input__prefix {
+    padding: 2px 8px 2px 0;
+  }
+}
+
+.t-date-range-picker:not(.t-datetime-range-picker) {
+  min-width: 264px;
+
+  .t-range-input__inner {
+    gap: 4px;
+
+    .t-input__inner {
+      min-width: 105px;
+    }
+
+    .t-input {
+      padding-right: 0;
+    }
+  }
+}
+
+.t-datetime-range-picker {
+  min-width: 396px;
+
+  .t-range-input__inner {
+    gap: 4px;
+
+    .t-input__inner {
+      min-width: 160px;
+    }
+
+    .t-input {
+      display: inline-flex;
+      padding-right: 0;
+    }
+  }
+}
+
+.t-date-picker__header-controller-month-popup,
+.t-date-picker__header-controller-year-popup {
+  > .t-popup__content {
+    max-height: @datepicker-panel-select-max-width;
+    border-color: #fff;
+    border-radius: 8px !important;
+    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
+  }
+}
+
+.t-date-picker__header-controller-year-popup > .t-popup__content {
+  max-width: 80px;
+}
+
+.t-date-picker__panel-container,
+.t-date-range-picker__panel-container {
+  position: relative;
+  // transition: display 300ms cubic-bezier(0, 0, 0.2, 1); // 禁用无效的 transition 属性
+
+  > .t-popup__content {
+    padding: 0;
+    min-width: @datepicker-panel-container-min-width;
+  }
+}
+
+.t-date-picker__panel,
+.t-date-range-picker__panel {
+  display: flex;
+  flex-direction: column;
+
+  &:has(.t-date-picker__panel-time) {
+    .t-date-picker__header {
+      border-top-right-radius: 0;
+    }
+
+    .t-date-picker__panel-time-viewer {
+      border-top-right-radius: 8px;
+    }
+  }
+
+  &--direction-row {
+    flex-direction: row;
+  }
+
+  .t-pagination-mini {
+    position: absolute;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    justify-content: space-between;
+
+    .t-button {
+      background-color: var(--td-brand-color-10);
+      color: #fff;
+      border-radius: 50%;
+
+      > svg {
+        font-size: 16px;
+      }
+    }
+
+    .t-pagination-mini__current {
+      display: none;
+    }
+
+    .t-button--variant-text:not(.t-is-disabled):not(.t-button--ghost) {
+      --ripple-color: var(--td-brand-color-6);
+    }
+  }
+
+  .t-date-range-picker__panel-content-wrapper > .t-date-picker__panel-content {
+    &:first-child {
+      .t-date-picker__header {
+        border-top-right-radius: 0;
+      }
+    }
+    &:last-child {
+      .t-date-picker__header {
+        border-top-left-radius: 0;
+      }
+    }
+  }
+
+  // 配合time-picker使用 需重置部分样式
+  .t-time-picker__panel {
+    width: @datepicker-time-panel-width;
+
+    &-section-body {
+      padding: 0;
+    }
+
+    &-body {
+      margin: 0;
+    }
+  }
+
+  .t-date-picker__presets {
+    .t-button.t-button--variant-text {
+      text-decoration: none;
+      color: var(--td-text-color-primary);
+    }
+  }
+
+  .t-date-picker__panel-time,
+  .t-date-range-picker__panel-time {
+    border-left: none;
+  }
+
+  .t-time-picker__panel-body {
+    height: 256px;
+    border-left: 1px solid rgba(0, 0, 0, 0.12);
+  }
+}
+
+.t-date-picker__panel-content,
+.t-date-range-picker__panel-content,
+.t-date-range-picker__panel-content-wrapper {
+  display: flex;
+}
+
+.t-date-picker__panel-content {
+  + .t-date-picker__panel-content {
+    border-left: 1px solid #ccc;
+  }
+}
+
+.t-date-picker__header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: @datepicker-header-gap;
+  padding: 8px 16px 0 16px;
+  background-color: var(--td-brand-color);
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-sizing: border-box;
+
+  // 禁用 header 中按钮的涟漪效果
+  button {
+    > div[style*="position: absolute"][style*="border-radius: 50%"] {
+      display: none !important;
+    }
+  }
+}
+
+.t-date-picker__header-controller {
+  display: inline-flex;
+  justify-content: center;
+  z-index: 2;
+  margin-left: 90px;
+
+  .t-date-picker__header-controller-month,
+  .t-date-picker__header-controller-year {
+    display: flex;
+  }
+
+  .t-select-input .t-input {
+    padding: 0 4px !important;
+    font-size: 16px;
+    font-weight: 700;
+    border-width: 0;
+    background-color: transparent;
+
+    .t-input__inner {
+      margin: 0 !important;
+    }
+
+    .t-input__suffix {
+      display: none;
+    }
+  }
+
+  .t-select__wrap {
+    max-width: 100px;
+    display: inline-flex;
+  }
+
+  .t-input__inner {
+    color: #fff;
+    font-weight: bold;
+    overflow: visible;
+    text-overflow: unset;
+    text-align: center;
+  }
+}
+
+.t-date-picker__table {
+  padding-bottom: 20px;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+      background-color: var(--td-brand-color);
+      color: #fff;
+
+      th {
+        text-align: center;
+        font-weight: bold;
+      }
+    }
+
+    td.t-date-picker__cell {
+      text-align: center;
+      font-weight: @datepicker-font-weight-medium;
+    }
+
+    th,
+    td.t-date-picker__cell {
+      padding: 0;
+      border: 0;
+      line-height: 32px;
+    }
+
+    tbody {
+      transform: translate(0, 10px);
+    }
+  }
+
+  // 周选择器交互
+  &-week-row {
+    cursor: pointer;
+    position: sticky;
+
+    .t-date-picker__cell:first-child .t-date-picker__cell-inner {
+      color: @datepicker-cell-disabled-color;
+    }
+
+    .t-date-picker__cell:hover .t-date-picker__cell-inner {
+      box-shadow: none;
+      background: none;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: @datepicker-week-firstcell-margin-left;
+      right: 0;
+      top: 4px;
+      z-index: 10;
+      height: 32px;
+      border-radius: @border-radius-default;
+      transition: @datepicker-transition;
+      pointer-events: none;
+    }
+
+    &:hover {
+      .t-date-picker__cell:first-child .t-date-picker__cell-inner {
+        color: @brand-color;
+      }
+
+      // &::after {
+      //   box-shadow: inset 0 0 0 1px @brand-color;
+      // }
+    }
+
+    // 高亮
+    &--active {
+      &::after {
+        opacity: 1;
+        z-index: 0;
+        background-color: @datepicker-cell-active-background;
+      }
+      .t-date-picker__cell:first-child .t-date-picker__cell-inner {
+        color: @brand-color;
+      }
+      .t-date-picker__cell .t-date-picker__cell-inner {
+        background: transparent;
+        color: @datepicker-cell-active-color;
+      }
+    }
+
+    // 在高亮区间
+    &--range {
+      &::after {
+        opacity: 1;
+        z-index: 0;
+        background-color: @datepicker-highlight-color;
+      }
+
+      .t-date-picker__cell .t-date-picker__cell-inner {
+        background: transparent;
+      }
+    }
+  }
+}
+
+.t-date-picker__footer {
+  display: flex;
+  width: 360px;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: @datepicker-presets-padding;
+  gap: @datepicker-presets-gap;
+
+  &.is-date-time {
+    width: 578px;
+  }
+
+  .t-date-range-picker__panel &:not(.is-date-time) {
+    width: 720px;
+  }
+
+  &--bottom {
+    border-top: 1px solid @datepicker-panel-divider-color;
+  }
+
+  &--top {
+    border-bottom: 1px solid @datepicker-panel-divider-color;
+  }
+
+  &--left {
+    flex-direction: column;
+    border-right: 1px solid @datepicker-panel-divider-color;
+
+    .t-date-picker__presets {
+      flex-direction: column;
+    }
+  }
+
+  &--right {
+    flex-direction: column;
+    border-left: 1px solid @datepicker-panel-divider-color;
+
+    .t-date-picker__presets {
+      flex-direction: column;
+    }
+  }
+}
+
+.t-date-picker__presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: @datepicker-presets-gap;
+  white-space: nowrap;
+  min-width: @datepicker-presets-min-width;
+
+  .t-button {
+    cursor: pointer;
+  }
+
+  a {
+    color: @datepicker-presets-text-color;
+
+    &:hover {
+      color: @datepicker-presets-text-color-hover;
+    }
+  }
+}
+
+.t-date-picker__panel-time,
+.t-date-range-picker__panel-time {
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid @datepicker-panel-divider-color;
+
+  &-viewer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    background-color: var(--td-brand-color);
+    color: #fff;
+  }
+
+  .t-time-picker__panel-body {
+    margin: 0;
+  }
+}
+
+.t-date-picker__panel-year,
+.t-date-picker__panel-month,
+.t-date-picker__panel-quarter,
+.t-date-picker__panel-week,
+.t-date-picker__panel-date {
+  display: flex;
+  flex-direction: column;
+  // gap: @datepicker-panel-gap;
+  width: 300px;
+  box-sizing: border-box;
+}
+
+.t-date-picker__panel-week,
+.t-date-picker__panel-date {
+  width: 360px;
+}
+
+// year month picker highlight
+.t-date-picker__panel-year,
+.t-date-picker__panel-month {
+  .t-date-picker__cell--hover-highlight + .t-date-picker__cell--hover-highlight {
+    &::before,
+    &::after {
+      opacity: 1;
+      left: @datepicker-cell-month-year-left;
+    }
+  }
+
+  .t-date-picker__cell--hover-highlight + .t-date-picker__cell--active {
+    &::after {
+      opacity: 1;
+      left: @datepicker-cell-month-year-left;
+      z-index: 5;
+    }
+  }
+
+  .t-date-picker__cell--highlight + .t-date-picker__cell--highlight {
+    &::before {
+      left: @datepicker-cell-month-year-left;
+    }
+  }
+}
+
+.t-date-picker__panel-year,
+.t-date-picker__panel-month,
+.t-date-picker__panel-quarter {
+  .t-date-picker__header-controller-year {
+    width: 130px;
+    display: flex;
+  }
+
+  .t-date-picker__table {
+    table {
+      tbody {
+        width: 100%;
+        display: flex;
+        gap: @datepicker-year-month-quarter-table-gap;
+        flex-direction: column;
+
+        tr {
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+
+  .t-date-picker__cell--disabled + .t-date-picker__cell--disabled:before {
+    left: @datepicker-cell-disabled-left-large;
+  }
+
+  .t-date-picker__cell:nth-child(1) {
+    text-align: left;
+  }
+
+  .t-date-picker__cell:nth-child(3) {
+    text-align: right;
+  }
+
+  .t-date-picker__cell-inner {
+    width: 56px;
+  }
+}
+
+.t-date-picker__panel-month {
+  .t-date-picker__cell-inner {
+    width: 80px;
+  }
+}
+
+@keyframes cellInnerActiveBorder {
+  0% {
+    inset: 0px;
+  }
+
+  100% {
+    inset: -4px;
+  }
+}
+
+.t-date-picker__cell {
+  cursor: pointer;
+  position: relative;
+  padding: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    z-index: 1;
+    opacity: 0;
+    border-radius: @border-radius-default;
+    height: 36px;
+    transform: translateY(-50%);
+    transition: opacity @anim-duration-base @anim-time-fn-ease-out;
+  }
+
+  &:not(.t-date-picker__cell--active):hover {
+    .t-date-picker__cell-inner {
+      background-color: #f0f1f2;
+    }
+  }
+
+  &:is(:active, :visited) {
+    .t-date-picker__cell-inner {
+      background-color: #f0f1f2;
+      border: 2px solid var(--td-brand-color);
+    }
+  }
+
+  &-inner {
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    margin: 4px 2px;
+    padding: 3px;
+    transition: @datepicker-transition;
+    box-sizing: border-box;
+  }
+
+  &:not(&--disabled) &-inner,
+  &:is(&--active) &-inner {
+    border-radius: 999px;
+  }
+
+  &--active&--disabled &-inner {
+    opacity: 0.75;
+  }
+
+  &--now {
+    .t-date-picker__cell-inner {
+      color: var(--td-brand-color);
+      font-weight: bold;
+    }
+  }
+
+  &--hover-highlight {
+    &::after {
+      // opacity: 1;
+      background-color: @datepicker-highlight-color;
+    }
+    .t-date-picker__cell-inner {
+      background-color: @datepicker-highlight-color;
+      color: var(--td-brand-color);
+    }
+  }
+
+  &--highlight {
+    .t-date-picker__cell-inner {
+      background-color: @datepicker-highlight-color;
+      color: var(--td-brand-color);
+    }
+    &::before {
+      // opacity: 1;
+      background-color: @datepicker-highlight-color;
+    }
+
+    &.t-date-picker__cell--hover-highlight {
+      &::after {
+        // opacity: 1;
+        background-color: @datepicker-hover-highlight-color;
+      }
+    }
+  }
+
+  &--additional {
+    &:hover {
+      .t-date-picker__cell-inner {
+        box-shadow: none;
+        border-color: @datepicker-cell-hover-background;
+        background-color: @datepicker-cell-hover-background;
+      }
+    }
+
+    .t-date-picker__cell-inner {
+      color: @datepicker-cell-disabled-color;
+    }
+  }
+
+  &--active {
+    &:not(:active, :visited) .t-date-picker__cell-inner {
+      color: @datepicker-cell-active-color;
+      background-color: @datepicker-cell-active-background;
+
+      &::before {
+        position: absolute;
+        content: '';
+        inset: 0px;
+        border: 2px solid var(--td-brand-color);
+        border-radius: 999px;
+        animation-name: cellInnerActiveBorder;
+        animation-delay: 0.3s;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+      }
+    }
+
+    &-start {
+      &::before {
+        left: @datepicker-cell-start-end-horizontal;
+        border-top-left-radius: @border-radius-default;
+        border-bottom-left-radius: @border-radius-default;
+      }
+
+      &:hover::before {
+        left: -5%;
+      }
+    }
+
+    &-end {
+      &::before {
+        right: @datepicker-cell-start-end-horizontal;
+        border-top-right-radius: @border-radius-default;
+        border-bottom-right-radius: @border-radius-default;
+      }
+
+      &:hover::before {
+        right: -5%;
+      }
+    }
+  }
+
+  &--disabled {
+    .t-date-picker__cell-inner {
+      cursor: not-allowed;
+      color: @datepicker-cell-disabled-color;
+      background-color: @datepicker-cell-disable-background-color;
+    }
+  }
+
+  &--disabled:not(&--active):hover {
+    .t-date-picker__cell-inner {
+      box-shadow: none;
+      background-color: @datepicker-cell-disable-background-color;
+    }
+  }
+
+  &--disabled {
+    &::before {
+      opacity: 1;
+      background-color: @datepicker-cell-disable-background-color;
+      border-radius: @border-radius-default;
+      left: 0;
+    }
+
+    + &--disabled {
+      &::before {
+        left: @datepicker-cell-disabled-left;
+      }
+    }
+  }
+}
+
+// hover 日期淡化输入框
+.t-date-picker__input--placeholder {
+  input {
+    color: @text-color-placeholder;
+  }
+}
