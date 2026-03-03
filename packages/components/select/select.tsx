@@ -5,7 +5,7 @@ import FakeArrow from '../common-components/fake-arrow';
 import SelectInput from '../select-input';
 import SelectPanel from './components/select-panel';
 import Tag from '../tag';
-import { BulletpointIcon } from 'tdesign-icons-vue-next';
+import { BulletpointIcon, CaretDownSmallIcon } from 'tdesign-icons-vue-next';
 import props from './props';
 // hooks
 import {
@@ -687,11 +687,16 @@ export default defineComponent({
                 return renderTNodeJSX('suffixIcon');
               }
 
-              // 海外版：使用 bulletpoint 图标替换默认箭头图标
+              // 海外版：使用指定图标替换默认箭头图标
               if (props.suffixIconOs) {
+                const OsIconMap: Record<string, typeof BulletpointIcon> = {
+                  bulletpoint: BulletpointIcon,
+                  'caret-down-small': CaretDownSmallIcon,
+                };
+                const OsIcon = OsIconMap[props.suffixIconOs] || BulletpointIcon;
                 return (
                   props.showArrow && (
-                    <BulletpointIcon
+                    <OsIcon
                       class={[
                         `${COMPONENT_NAME.value}__right-icon`,
                         `${COMPONENT_NAME.value}__right-icon--overseas`,

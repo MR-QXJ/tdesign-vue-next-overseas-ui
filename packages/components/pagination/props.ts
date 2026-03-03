@@ -27,17 +27,18 @@ export default {
   /** 折叠时最多显示页码按钮数 */
   foldedMaxPageBtn: {
     type: Number,
-    default: 5,
+    default: 3,
   },
   /** 最多显示页码按钮数 */
   maxPageBtn: {
     type: Number,
-    default: 10,
+    default: 3,
   },
   /** 页码数量超出时，前后省略模式, `mid`表示中间省略, `both-ends` 表示两端省略 */
+  // 海外组件不需要折叠省略号
   pageEllipsisMode: {
     type: String as PropType<TdPaginationProps['pageEllipsisMode']>,
-    default: 'mid' as TdPaginationProps['pageEllipsisMode'],
+    default: '' as TdPaginationProps['pageEllipsisMode'],
     validator(val: TdPaginationProps['pageEllipsisMode']): boolean {
       if (!val) return true;
       return ['mid', 'both-ends'].includes(val);
@@ -46,7 +47,7 @@ export default {
   /** 每一页的数据量 */
   pageSize: {
     type: Number,
-    default: undefined,
+    default: 10,
   },
   /** 每一页的数据量，非受控属性 */
   defaultPageSize: {
@@ -57,6 +58,11 @@ export default {
   pageSizeOptions: {
     type: Array as PropType<TdPaginationProps['pageSizeOptions']>,
     default: (): TdPaginationProps['pageSizeOptions'] => [5, 10, 20, 50],
+  },
+  /** 每一页数据量的描述文字，非空时在分页大小选择器左侧渲染标签 */
+  pageSizeDsc: {
+    type: String,
+    default: '',
   },
   /** 透传全部属性到 Select 组件，也可使用 `selectProps.popupProps` 透传全部 Popup 组件 */
   selectProps: {
@@ -107,6 +113,11 @@ export default {
   /** 用于自定义总条数呈现内容。默认显示总条数，值为 false 则不显示 */
   totalContent: {
     type: [Boolean, Function] as PropType<TdPaginationProps['totalContent']>,
+    default: true,
+  },
+  /** 用于自定义总页数呈现内容。默认显示总页数，值为 false 则不显示 */
+  totalPage: {
+    type: [Boolean, Function] as PropType<TdPaginationProps['totalPage']>,
     default: true,
   },
   /** 当前页或分页大小发生变化时触发 */

@@ -1,0 +1,42 @@
+@import '../../../../overseas/style/base.less';
+@import './_var.less';
+@import '../../../../overseas/style/mixins/_reset.less';
+
+.@{prefix}-pagination-mini {
+  .reset;
+  // 修复 size=medium (variant-text + shape-square) 时 padding 覆盖导致图标被挤压
+  .@{prefix}-button.@{prefix}-button--variant-text.@{prefix}-button--shape-square {
+    padding: 0;
+    color: @pagination-text-color;
+  }
+
+  &--outline {
+    .@{prefix}-pagination-mini__prev {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    .@{prefix}-pagination-mini__current {
+      border-radius: 0;
+      position: relative;
+      margin-left: -1px;
+
+      &:hover {
+        z-index: 1;
+      }
+    }
+
+    .@{prefix}-pagination-mini__next {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      position: relative;
+      margin-left: -1px;
+
+      &:hover {
+        z-index: 1;
+      }
+    }
+  }
+}

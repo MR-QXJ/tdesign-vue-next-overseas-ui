@@ -1,22 +1,13 @@
 import { defineComponent, computed, ref, watch, toRefs, nextTick } from 'vue';
 import { isNaN, isObject } from 'lodash-es';
 import {
-  PageFirstIcon as TdPageFirstIcon,
-  PageLastIcon as TdPageLastIcon,
   ChevronLeftIcon as TdChevronLeftIcon,
   ChevronRightIcon as TdChevronRightIcon,
   ChevronLeftDoubleIcon as TdChevronLeftDoubleIcon,
   ChevronRightDoubleIcon as TdChevronRightDoubleIcon,
   EllipsisIcon as TdEllipsisIcon,
 } from 'tdesign-icons-vue-next';
-import {
-  useConfig,
-  useVModel,
-  useTNodeJSX,
-  useGlobalIcon,
-  usePrefixClass,
-  useDefaultValue,
-} from '@tdesign/shared-hooks';
+import { useVModel, useTNodeJSX, useGlobalIcon, usePrefixClass, useDefaultValue } from '@tdesign/shared-hooks';
 
 import TInputNumber from '../input-number';
 import { Select } from '../select';
@@ -52,25 +43,15 @@ export default defineComponent({
       'pageSize',
     );
 
-    const { t, globalConfig } = useConfig('pagination');
     const COMPONENT_NAME = usePrefixClass('pagination');
-    const {
-      PageFirstIcon,
-      PageLastIcon,
-      ChevronLeftIcon,
-      ChevronRightIcon,
-      ChevronLeftDoubleIcon,
-      ChevronRightDoubleIcon,
-      EllipsisIcon,
-    } = useGlobalIcon({
-      PageFirstIcon: TdPageFirstIcon,
-      PageLastIcon: TdPageLastIcon,
-      ChevronLeftIcon: TdChevronLeftIcon,
-      ChevronRightIcon: TdChevronRightIcon,
-      ChevronLeftDoubleIcon: TdChevronLeftDoubleIcon,
-      ChevronRightDoubleIcon: TdChevronRightDoubleIcon,
-      EllipsisIcon: TdEllipsisIcon,
-    });
+    const { ChevronLeftIcon, ChevronRightIcon, ChevronLeftDoubleIcon, ChevronRightDoubleIcon, EllipsisIcon } =
+      useGlobalIcon({
+        ChevronLeftIcon: TdChevronLeftIcon,
+        ChevronRightIcon: TdChevronRightIcon,
+        ChevronLeftDoubleIcon: TdChevronLeftDoubleIcon,
+        ChevronRightDoubleIcon: TdChevronRightDoubleIcon,
+        EllipsisIcon: TdEllipsisIcon,
+      });
 
     const { pageCount, ...CLASS_MAP } = usePaginationClasses(props, innerCurrent, innerPageSize, COMPONENT_NAME);
 
@@ -90,7 +71,7 @@ export default defineComponent({
         isObject(option)
           ? option
           : {
-              label: t(globalConfig.value.itemsPerPage, { size: option }),
+              label: String(option),
               value: Number(option),
             },
       );
@@ -111,21 +92,26 @@ export default defineComponent({
           start = innerCurrent.value - curPageLeftCount.value;
           end = innerCurrent.value + curPageRightCount.value;
         } else {
-          const foldedStart = isMidEllipsis.value ? 2 : 1;
-          const foldedEnd = isMidEllipsis.value ? pageCount.value - 1 : pageCount.value;
-          if (isPrevMoreShow.value) {
-            // 保证前面还有一页展示
-            start = Math.min(innerCurrent.value - 1, pageCount.value - props.foldedMaxPageBtn + 1);
-          } else {
-            start = foldedStart;
-          }
+          // const foldedStart = isMidEllipsis.value ? 2 : 1;
+          // const foldedEnd = isMidEllipsis.value ? pageCount.value - 1 : pageCount.value;
+          // if (isPrevMoreShow.value) {
+          //   // 保证前面还有一页展示
+          //   start = Math.min(innerCurrent.value - 1, pageCount.value - props.foldedMaxPageBtn + 1);
+          // } else {
+          // start = foldedStart;
+          // }
 
-          if (isNextMoreShow.value) {
-            // 保证后面还有一页展示
-            end = Math.max(innerCurrent.value + 1, props.foldedMaxPageBtn);
-          } else {
-            end = foldedEnd;
-          }
+          // if (isNextMoreShow.value) {
+          //   // 保证后面还有一页展示
+          //   end = Math.max(innerCurrent.value + 1, props.foldedMaxPageBtn);
+          // } else {
+          // end = foldedEnd;
+          // }
+          // 始终保持最多只有foldedMaxPageBtn(默认3个) 首尾不会多一个
+          const foldedStart = 1;
+          const foldedEnd = pageCount.value;
+          start = isPrevMoreShow.value ? pageCount.value - props.foldedMaxPageBtn + 1 : foldedStart;
+          end = isPrevMoreShow.value ? foldedEnd : props.foldedMaxPageBtn;
         }
       } else {
         start = 1;
@@ -222,10 +208,15 @@ export default defineComponent({
       const { total, pageSizeOptions, size, disabled, showPageSize } = props;
       if (pageCount.value < 1) return null;
 
+      const startIndex = (innerCurrent.value - 1) * innerPageSize.value + 1;
+      const endIndex = Math.min(innerCurrent.value * innerPageSize.value, total);
+      const currentItemsDetail =
+        total === 0 ? '0' : startIndex >= total ? `${startIndex}` : `${startIndex}-${endIndex}`;
+      const totalDisplayText = total === 0 ? '0 of 0 items' : `${currentItemsDetail} of ${total} items`;
+
       const Jumper = (
         <div class={CLASS_MAP.jumperClass.value}>
-          {t(globalConfig.value.jumpTo)}
-          <TInputAdornment append={`/ ${pageCount.value} ${t(globalConfig.value.page)}`}>
+          <TInputAdornment>
             <TInputNumber
               class={CLASS_MAP.jumperInputClass.value}
               v-model={jumpIndex.value}
@@ -244,11 +235,8 @@ export default defineComponent({
 
       return (
         <div class={CLASS_MAP.paginationClass.value}>
-          {/* 数据统计区 */}
-          {renderTNodeJSX(
-            'totalContent',
-            <div class={CLASS_MAP.totalClass.value}>{t(globalConfig.value.total, total)}</div>,
-          )}
+          {/* pageSizeDsc 描述文字 */}
+          {props.pageSizeDsc && <div class="page-size-dsc">{props.pageSizeDsc}</div>}
           {/* 分页器 */}
           {showPageSize && pageSizeOptions.length > 0 && (
             <Select
@@ -259,13 +247,19 @@ export default defineComponent({
               autoWidth={true}
               onChange={onSelectorChange}
               options={sizeOptions.value}
-              {...props.selectProps}
+              style={{ width: '70px' }}
+              clearable={false}
+              {...(props.selectProps || { singleUseTag: false, suffixIconOs: 'caret-down-small' })}
             />
           )}
+          {/* 数据统计区 */}
+          {props.theme !== 'simple' &&
+            showPageSize &&
+            renderTNodeJSX('totalContent', <div class={CLASS_MAP.totalClass.value}>{totalDisplayText}</div>)}
           {/* 首页按钮 */}
           {props.showFirstAndLastPageBtn ? (
             <div class={CLASS_MAP.preBtnClass.value} onClick={() => toPage(1)}>
-              <PageFirstIcon />
+              <ChevronLeftDoubleIcon />
             </div>
           ) : null}
           {/* 向前按钮 */}
@@ -325,11 +319,14 @@ export default defineComponent({
           {/* 尾页按钮 */}
           {props.showFirstAndLastPageBtn ? (
             <div class={CLASS_MAP.nextBtnClass.value} onClick={() => toPage(pageCount.value)}>
-              <PageLastIcon />
+              <ChevronRightDoubleIcon />
             </div>
           ) : null}
           {/* 快速跳转 */}
           {props.theme === 'default' && props.showJumper && Jumper}
+          {/* 数据总页数 totalPage */}
+          {props.theme !== 'simple' &&
+            renderTNodeJSX('totalPage', <div class={CLASS_MAP.totalClass.value}>{`of ${pageCount.value} pages`}</div>)}
         </div>
       );
     };
