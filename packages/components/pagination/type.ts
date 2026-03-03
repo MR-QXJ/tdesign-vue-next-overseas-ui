@@ -58,6 +58,11 @@ export interface TdPaginationProps {
    */
   pageSizeOptions?: Array<number | { label: string; value: number }>;
   /**
+   * 每一页数据量的描述文字，非空时在分页大小选择器左侧渲染标签
+   * @default ''
+   */
+  pageSizeDsc?: string;
+  /**
    * 透传全部属性到 Select 组件，也可使用 `selectProps.popupProps` 透传全部 Popup 组件
    */
   selectProps?: SelectProps;
@@ -106,6 +111,11 @@ export interface TdPaginationProps {
    * @default true
    */
   totalContent?: boolean | TNode;
+  /**
+   * 用于自定义总页数呈现内容。默认显示总页数，值为 false 则不显示
+   * @default true
+   */
+  totalPage?: boolean | TNode;
   /**
    * 当前页或分页大小发生变化时触发
    */

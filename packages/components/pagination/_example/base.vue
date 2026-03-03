@@ -3,7 +3,10 @@
     <t-pagination
       v-model="current"
       v-model:pageSize="pageSize"
-      :total="100"
+      show-first-and-last-page-btn
+      show-jumper
+      :show-page-size="false"
+      :total="36"
       @change="onChange"
       @page-size-change="onPageSizeChange"
       @current-change="onCurrentChange"
@@ -11,10 +14,12 @@
     <!-- :pageSizeOptions="[]" 表示隐藏分页器选项 -->
     <!-- 非受控用法，代码有效，勿删。 -->
     <t-pagination
+      show-first-and-last-page-btn
+      show-jumper
+      page-size-dsc="Items per page"
       :total="36"
       :default-current="2"
       :default-page-size="10"
-      show-first-and-last-page-btn
       @current-change="onCurrentChange"
       @page-size-change="onPageSizeChange"
       @change="onChange"
