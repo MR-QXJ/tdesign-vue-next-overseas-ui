@@ -1,0 +1,210 @@
+// S2 海外版 Steps 组件样式
+@import './_var.less';
+@import './_mixin.less';
+
+.@{prefix}-steps {
+  display: flex;
+  width: 100%;
+  .step-item-basic();
+
+  // 移除 TDesign 官方的 steps-item margin-right（与 Vue 2 对齐）
+  .@{prefix}-steps-item {
+    margin-right: 0;
+  }
+
+  // 移除 TDesign 官方的 __title padding-right 和 width（与 Vue 2 对齐）
+  .@{prefix}-steps-item__title {
+    padding-right: 0 !important;
+    width: auto !important; // 移除 TDesign 官方的 width: fit-content
+  }
+
+  &--line-separator {
+    .@{prefix}-steps-item:before,
+    .@{prefix}-steps-item:after,
+    .@{prefix}-steps-item__icon--line:before,
+    .@{prefix}-steps-item__icon--line:after {
+      border-style: solid;
+    }
+  }
+
+  &--dashed-separator {
+    .@{prefix}-steps-item:before,
+    .@{prefix}-steps-item:after,
+    .@{prefix}-steps-item__icon--line:before,
+    .@{prefix}-steps-item__icon--line:after {
+      border-style: dashed;
+    }
+  }
+
+  // 水平步骤条
+  &--horizontal {
+    // 移除 TDesign 官方的 __icon margin-right（水平模式不需要，与 Vue 2 对齐）
+    .@{prefix}-steps-item__icon {
+      margin-right: 0 !important;
+    }
+
+    // 水平步骤条布局：移除 display: flex，使用默认块级布局
+    .@{prefix}-steps-item__inner {
+      display: block;
+    }
+
+    // 默认锚点
+    &.@{prefix}-steps--default-anchor {
+      // 禁用 TDesign 官方的 __title:after 连接线（overseas 使用 __icon--line:after）
+      .@{prefix}-steps-item__title:after {
+        display: none !important;
+      }
+
+      .@{prefix}-steps-item__title {
+        margin-top: @steps-item-title-margin-top;
+        margin-bottom: @steps-item-title-margin-bottom;
+        text-align: @steps-item-content-text-align-horizontal;
+      }
+      .@{prefix}-steps-item__description {
+        text-align: @steps-item-content-text-align-horizontal;
+      }
+
+      .@{prefix}-steps-item__icon {
+        display: flex;
+        justify-content: center;
+        margin-right: 0 !important; // 移除 TDesign 官方的 margin-right（与 Vue 2 对齐）
+        &__number {
+          width: @steps-circle-width;
+          height: @steps-circle-height;
+        }
+
+        .t-icon {
+          font-size: @steps-item-t-icon-font-size-default;
+        }
+      }
+
+      // 默认锚点的连接线，以 title 为起点
+      .connector-default(horizontal);
+
+      // 倒序
+      &.@{prefix}-steps--reverse {
+        .connector-default(horizontal, true);
+      }
+    }
+
+    // 点状锚点
+    &.@{prefix}-steps--dot-anchor {
+      .@{prefix}-steps-item {
+        overflow: visible;
+
+        .@{prefix}-steps-item__title {
+          margin-top: @steps-item-dot-title-margin-top;
+          padding-right: 0;
+          margin-bottom: @steps-item-title-margin-bottom;
+        }
+
+        &--finish {
+          .dot-anchor-status(finish);
+        }
+
+        &--process {
+          .dot-anchor-status(process);
+        }
+
+        &--error {
+          .dot-anchor-status(error);
+        }
+      }
+
+      .@{prefix}-steps-item__inner {
+        display: flex;
+        flex-direction: column;
+        align-items: @steps-item-inner-align-items;
+      }
+
+      .dot-icon(horizontal);
+      // 点状锚点连接线，以整个 item 为起点
+      .connector-dot(horizontal);
+
+      &.@{prefix}-steps--reverse {
+        .connector-dot(horizontal, true);
+      }
+    }
+  }
+
+  // 垂直步骤条
+  &--vertical {
+    width: fit-content;
+    flex-direction: column;
+
+    // 默认步骤条连接线，以 item 为起点
+    &.@{prefix}-steps--positive {
+      .connector-default(vertical);
+
+      // 移除 TDesign 官方的 steps-item margin-bottom（与 Vue 2 对齐）
+      .@{prefix}-steps-item {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    // 默认锚点
+    &.@{prefix}-steps--default-anchor {
+      .@{prefix}-steps-item__content {
+        margin-left: @steps-item-content-margin-left-vertical;
+      }
+
+      .@{prefix}-steps-item__title {
+        margin-bottom: @steps-item-title-margin-bottom;
+      }
+    }
+
+    // 点状锚点
+    &.@{prefix}-steps--dot-anchor {
+      // 点状步骤条连接线，以 item 为起点
+      &.@{prefix}-steps--positive {
+        .connector-dot(vertical);
+      }
+
+      .@{prefix}-steps-item {
+        margin-bottom: 0;
+
+        .@{prefix}-steps-item__title {
+          margin-bottom: @steps-item-title-margin-bottom;
+        }
+
+        &--finish {
+          .dot-anchor-status(finish);
+        }
+
+        &--process {
+          .dot-anchor-status(process);
+        }
+
+        &--error {
+          .dot-anchor-status(error);
+        }
+      }
+
+      .dot-icon(vertical);
+    }
+
+    // 垂直步骤条布局
+    .@{prefix}-steps-item__inner {
+      display: flex;
+    }
+
+    // 垂直步骤条特定样式
+    .@{prefix}-steps-item__icon {
+      margin-right: @steps-item-icon-margin-right;
+    }
+
+    // 倒序
+    &.@{prefix}-steps--reverse {
+      .connector-default(vertical, true);
+
+      // 移除 TDesign 官方的 steps-item margin-bottom（与 Vue 2 对齐）
+      .@{prefix}-steps-item {
+        margin-bottom: 0 !important;
+      }
+
+      &.@{prefix}-steps--dot-anchor {
+        .connector-dot(vertical, true);
+      }
+    }
+  }
+}

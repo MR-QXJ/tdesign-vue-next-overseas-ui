@@ -1,1 +1,2 @@
-import '@tdesign/common-style/web/components/date-picker/_index.less';
+// 使用海外版本样式（优先加载）
+import './overseas/index.less';

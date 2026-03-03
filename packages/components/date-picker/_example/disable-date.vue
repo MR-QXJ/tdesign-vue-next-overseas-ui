@@ -1,5 +1,5 @@
 <template>
-  <t-space direction="vertical">
+  <t-space direction="vertical" style="width: 240px">
     <t-date-picker
       placeholder="禁用昨天、前天"
       :disable-date="[dayjs().subtract(1, 'day').format(), dayjs().subtract(2, 'day').format()]"

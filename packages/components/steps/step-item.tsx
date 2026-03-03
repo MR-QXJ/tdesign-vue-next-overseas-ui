@@ -69,7 +69,9 @@ export default defineComponent({
           class={`${COMPONENT_NAME.value}__inner ${canClick.value ? `${COMPONENT_NAME.value}--clickable` : ''}`}
           onClick={onStepClick}
         >
-          <div class={iconClass.value}>{renderIcon()}</div>
+          <div class={iconClass.value}>
+            <div class={`${COMPONENT_NAME.value}__icon--line`}>{renderIcon()}</div>
+          </div>
           <div class={`${COMPONENT_NAME.value}__content`}>
             <div class={`${COMPONENT_NAME.value}__title`}>{renderTNodeJSX('title')}</div>
             <div class={`${COMPONENT_NAME.value}__description`}>{renderContent('default', 'content')}</div>

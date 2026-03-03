@@ -59,6 +59,6 @@ function handleYearChange(context) {
 .date-picker-panel-border {
   border: 1px solid var(--td-border-level-2-color);
   width: fit-content;
-  border-radius: 3;
+  border-radius: 6px;
 }
 </style>

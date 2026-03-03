@@ -1,0 +1,122 @@
+// Steps 组件变量
+
+@import '../../../../common/style/web/_variables.less';
+
+// 组件前缀
+@prefix: t;
+
+// 点状步骤条相关
+@steps-circle-height: 24px;
+@steps-circle-width: 24px;
+@steps-item-title-margin-bottom: var(--td-comp-margin-xs);
+@steps-item-title-margin-top: var(--td-comp-margin-s);
+@steps-item-dot-title-margin-top: var(--td-comp-margin-xs);
+@steps-item-description-margin: var(--td-comp-margin-xs);
+@steps-item-content-margin-top: var(--td-comp-margin-xs);
+@steps-item-content-margin-top-vertical: var(--td-comp-margin-xxs);
+@steps-item-margin-right: var(--td-comp-margin-s);
+@steps-item-icon-margin-right: var(--td-comp-margin-s);
+@steps-title-padding-right: var(--td-comp-margin-s);
+@steps-dot-item-icon-margin-bottom: var(--td-comp-margin-xs);
+@steps-item-content-margin-left-vertical: 0px;
+@steps-item-padding-bottom-vertical: var(--td-comp-margin-xxl);
+@steps-item-margin-bottom-vertical: 5px;
+@steps-item-icon-number-line-height: 1px;
+@steps-item-icon-number-line-width: 1px;
+@steps-item-icon-number-line-top: calc(@steps-circle-height + @step-stroke-width);
+@steps-item-connector-line-width: calc(100% - @steps-dot-item-icon-width);
+@steps-title-line-height: 24px;
+@steps-description-line-height: 22px;
+@steps-dot-item-icon-height: 6px;
+@steps-dot-item-icon-width: 6px;
+@steps-item-icon-number-line-left: calc(@steps-circle-width / 2 + @step-stroke-width / 2);
+@steps-dot-anchor-position-top: 8px;
+@steps-dot-content-width: 140px;
+@steps-dot-connector-position-top-horizontal: calc(
+  (@steps-dot-item-icon-height - @steps-item-icon-number-line-height) / 2
+);
+@steps-dot-connector-position-top-horizontal-line: 12px;
+@steps-dot-connector-position-left-horizontal: calc(@steps-dot-content-width / 2 + @steps-dot-item-icon-width / 2);
+@steps-dot-connector-position-height: 8px;
+@steps-dot-connector-position-top-vertical-before: 14px;
+@steps-dot-connector-position-top-vertical-after: -0.5px;
+@steps-dot-connector-position-top-vertical-after-isReverse: -1.5px;
+@steps-dot-connector-position-left-vertical: 2.6px;
+
+// 默认状态 颜色
+@steps-item-default-font-color: var(--td-text-color-disabled);
+@steps-item-default-title-color: var(--td-text-color-primary);
+@steps-item-default-border-color: var(--td-component-border);
+@steps-item-default-line-color: var(--td-component-border);
+
+// 描边宽度
+@step-stroke-width: 2px;
+@steps-line-width: 2px;
+@steps-line-height: 2px;
+
+// 字体字重
+@steps-title-font-weight: normal;
+
+// 字体大小
+@steps-item-icon-font-size: var(--td-font-size-body-medium);
+@steps-item-t-icon-font-size-default: 26px;
+@steps-title-font-size-anchor: var(--td-font-size-title-large);
+@steps-description-font-size: var(--td-font-size-body-medium);
+@steps-default-step-icon-font-size: var(--td-font-size-title-medium);
+
+// 位置
+@steps-item-content-text-align-horizontal: center;
+@steps-item-inner-align-items: center;
+
+// 颜色 description
+@steps-description-color-default: @steps-item-default-font-color;
+@steps-description-color-finish: var(--td-text-color-secondary);
+@steps-description-color-process: var(--td-text-color-secondary);
+@steps-description-color-error: var(--td-text-color-secondary);
+
+// title
+@steps-title-color-default: @steps-item-default-font-color;
+@steps-title-color-finish: var(--td-text-color-primary);
+@steps-title-color-process: var(--td-brand-color);
+@steps-title-color-error: var(--td-error-color);
+
+// icon
+@steps-item-icon-color: var(--td-text-color-placeholder);
+@steps-item-icon-border-color-default: @steps-item-default-border-color;
+@steps-item-icon-border-color-finish: var(--td-brand-color);
+@steps-item-icon-border-color-error: var(--td-error-color);
+
+// item-icon anchor 状态
+@steps-item-icon-anchor-number-color-error: var(--td-error-color);
+@steps-item-icon-anchor-number-border-color-error: var(--td-error-color);
+@steps-item-icon-anchor-color: var(--td-brand-color);
+@steps-item-icon-anchor-color-error: var(--td-error-color);
+
+// item-icon dot 状态
+@steps-item-icon-dot-border-color-finish: var(--td-brand-color);
+@steps-item-icon-dot-bg-color-process: var(--td-brand-color);
+@steps-item-icon-dot-border-color-process: var(--td-brand-color);
+@steps-item-icon-dot-bg-color-error: var(--td-error-color);
+@steps-item-icon-dot-border-color-error: var(--td-error-color);
+@steps-item-icon-dot-border-color-default: var(--td-text-color-placeholder);
+
+// number 颜色
+@steps-item-icon-number-color-default: @steps-item-default-font-color;
+@steps-item-icon-number-color-process: var(--td-font-white-1);
+@steps-item-icon-number-bg-color-process: var(--td-brand-color);
+@steps-item-icon-number-border-color-process: var(--td-brand-color);
+@steps-item-icon-number-color-error: #000;
+
+// line 锚点连接线 horizontal
+@steps-line-bg-color-horizontal-default: @steps-item-default-line-color;
+@steps-line-bg-color-horizontal-finish: var(--td-brand-color);
+
+// line 锚点连接线 vertical
+@steps-line-bg-color-vertical-default: @steps-item-default-line-color;
+@steps-line-bg-color-vertical-finish: var(--td-brand-color);
+@steps-line-bg-color-vertical-process: var(--td-brand-color);
+
+// 点状连接线 vertical
+@steps-line-dot-bg-color-vertical-default: @steps-item-default-line-color;
+@steps-line-dot-bg-color-vertical-finish: var(--td-brand-color);
+@steps-line-dot-bg-color-vertical-process: var(--td-brand-color);
