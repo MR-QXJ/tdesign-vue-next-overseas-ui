@@ -1,0 +1,69 @@
+@import '../../base.less';
+
+@import './_var.less';
+
+.@{prefix}-divider {
+  display: flex;
+  color: @divider-color;
+  border-color: @divider-color;
+  border-style: @divider-content-line-style;
+  border-width: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    flex: 1;
+    box-sizing: border-box;
+    border: inherit;
+    border-color: inherit;
+    border-style: inherit;
+  }
+
+  &--horizontal {
+    align-items: center;
+    margin: @divider-horizontal-margin 0;
+
+    &::before,
+    &::after {
+      border-top-width: @divider-border-width;
+      transform: scaleY(.5);
+      transform-origin: center;
+    }
+
+    .@{prefix}-divider__content:not(:empty) {
+      margin: 0 @divider-content-margin;
+    }
+  }
+
+  &--vertical {
+    flex-direction: column;
+    height: 1em;
+    margin: 0 @divider-vertical-margin;
+
+    &::before,
+    &::after {
+      border-left-width: 1px;
+      transform: scaleX(.5);
+    }
+
+    &-center {
+      align-items: center;
+      height: 100%;
+    }
+  }
+
+  &--dashed {
+    border-style: dashed;
+  }
+
+  &__content {
+    font: @divider-content-font;
+    color: @divider-content-color;
+  }
+
+  &--left::before,
+  &--right::after {
+    max-width: 30px;
+  }
+}

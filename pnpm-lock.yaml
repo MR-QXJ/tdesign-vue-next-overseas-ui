@@ -369,6 +369,9 @@ importers:
       '@commitlint/config-conventional':
         specifier: catalog:lint
         version: 15.0.0
+      '@tencent/s2-spec-kit-core':
+        specifier: ^1.1.4
+        version: 1.1.4
       '@types/node':
         specifier: catalog:types
         version: 22.15.32
@@ -2387,6 +2390,7 @@ packages:
     resolution: {integrity: sha512-vV3cL48U5kDaKZtXrti12YRa7TyxgKAIDoYdqSIOMOFBXqFj2XbChHAtXquEn2+n78ciFgr4KIqEbydEGPxXgA==}
     cpu: [riscv64]
     os: [linux]
+    libc: [glibc]
 
   '@rollup/rollup-linux-riscv64-musl@4.44.0':
     resolution: {integrity: sha512-TDKO8KlHJuvTEdfw5YYFBjhFts2TR0VpZsnLLSYmB7AaohJhM8ctDSdDnUGq77hUh4m/djRafw+9zQpkOanE2Q==}
@@ -2434,6 +2438,11 @@ packages:
 
   '@tdesign/theme-generator@1.2.0':
     resolution: {integrity: sha512-S60rVxsEUSAjLfy/zmvYxF182TQEKBpf6IWZ47rc2FaTibox3n+Y/f6oT+9v/TxyeNeNg/ixG1I8bjDXF/BJGA==}
+
+  '@tencent/s2-spec-kit-core@1.1.4':
+    resolution: {integrity: sha512-twInz0vonEFg56GopzFO/11ib8jZEKpW3FYVP6xfXdmaKfNjR6X72qAfecxiVgq8YWKm6yMYCVbl7Z+2m5spYA==, tarball: https://mirrors.tencent.com/npm/@tencent/s2-spec-kit-core/-/@tencent/s2-spec-kit-core-1.1.4.tgz}
+    engines: {node: '>=12.18.4'}
+    hasBin: true
 
   '@testing-library/dom@9.3.4':
     resolution: {integrity: sha512-FlS4ZWlp97iiNWig0Muq8p+3rVDjRiYE+YKGbAqXOu9nwJFFOdL00kFpz42M+4huzYi86vAK1sOOfyOG45muIQ==}
@@ -7387,7 +7396,6 @@ packages:
   whatwg-encoding@2.0.0:
     resolution: {integrity: sha512-p41ogyeMUrw3jWclHWTQg1k05DSVXPLcVxRTYsXUk+ZooOCZLcoYgPZ/HL/D/N+uQPOtcp1me1WhBEaX02mhWg==}
     engines: {node: '>=12'}
-    deprecated: Use @exodus/bytes instead for a more spec-conformant and faster implementation
 
   whatwg-mimetype@3.0.0:
     resolution: {integrity: sha512-nt+N2dzIutVRxARx1nghPKGv1xHikU7HKdfafKkLNLindmPU/ch3U31NOCGGA/dmPcmb1VlofO0vnKAcsm0o/Q==}
@@ -9161,6 +9169,8 @@ snapshots:
       tdesign-vue: 1.13.1-naruto(vue@2.7.14)
       tvision-color: 1.6.0
       vue: 2.7.14
+
+  '@tencent/s2-spec-kit-core@1.1.4': {}
 
   '@testing-library/dom@9.3.4':
     dependencies:
