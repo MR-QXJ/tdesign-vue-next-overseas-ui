@@ -210,6 +210,7 @@ export default defineComponent({
           {showMonthPicker.value && (
             <TSelect
               class={`${COMPONENT_NAME.value}-controller-month`}
+              singleUseTag={false}
               value={props.month}
               options={monthOptions.value}
               onChange={(val: number) => {
@@ -223,6 +224,7 @@ export default defineComponent({
           )}
           <TSelect
             class={`${COMPONENT_NAME.value}-controller-year`}
+            singleUseTag={false}
             value={props.mode === 'year' ? nearestYear.value : props.year}
             options={yearOptions.value}
             onChange={(val: number) => {
