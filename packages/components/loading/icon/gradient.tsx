@@ -1,35 +1,27 @@
-import { defineComponent, onMounted, nextTick, ref } from 'vue';
+import { defineComponent } from 'vue';
 import { usePrefixClass } from '@tdesign/shared-hooks';
-import circleAdapter from '@tdesign/common-js/loading/circle-adapter';
 
 export default defineComponent({
   name: 'TLoadingGradient',
   setup() {
     const classPrefix = usePrefixClass();
-    const circleRef = ref<HTMLElement | null>();
-
-    onMounted(() => {
-      nextTick(() => {
-        circleAdapter(circleRef.value);
-      });
-    });
 
     return () => {
-      const name = `${classPrefix.value}-loading__gradient`;
-      const classes = [name, `${classPrefix.value}-icon-loading`];
+      const classes = [`${classPrefix.value}-icon`, `${classPrefix.value}-icon-loading`];
 
       return (
         <svg
           class={classes}
-          viewBox="0 0 12 12"
+          viewBox="0 0 24 24"
           version="1.1"
           width="1em"
           height="1em"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <foreignObject x="0" y="0" width="12" height="12">
-            <div class={`${name}-conic`} ref={circleRef} />
-          </foreignObject>
+          <path
+            fill="currentColor"
+            d="M18.1,20.8c0.2,0.4,0.1,1-0.3,1.2c-0.4,0.2-0.9,0.1-1.2-0.3c-0.3-0.4-0.1-0.9,0.3-1.2C17.3,20.2,17.8,20.3,18.1,20.8z   M12.9,22.6c0,0.5-0.4,0.9-0.9,0.9c-0.5,0-0.9-0.4-0.9-0.9V22c0-0.5,0.4-0.9,0.9-0.9s0.9,0.4,0.9,0.9V22.6z M7.5,21.6  c-0.2,0.4-0.8,0.6-1.2,0.3c-0.4-0.2-0.6-0.8-0.3-1.2l0.7-1.1c0.3-0.4,0.8-0.6,1.2-0.3c0.4,0.2,0.6,0.8,0.3,1.2L7.5,21.6z M3.3,18.1  c-0.4,0.2-1,0.1-1.2-0.3c-0.2-0.4-0.1-1,0.3-1.2l1.8-1c0.4-0.2,1-0.1,1.2,0.3c0.2,0.4,0.1,1-0.3,1.2L3.3,18.1L3.3,18.1z M1.4,12.9  c-0.5,0-0.9-0.4-0.9-0.9s0.4-0.9,0.9-0.9h2.7C4.6,11.1,5,11.5,5,12s-0.4,0.9-0.9,0.9H1.4z M2.4,7.5C1.9,7.2,1.8,6.7,2,6.3  c0.2-0.4,0.8-0.6,1.2-0.3l3,1.7c0.4,0.2,0.6,0.8,0.3,1.2C6.3,9.3,5.8,9.4,5.4,9.2C5.4,9.2,2.4,7.5,2.4,7.5z M5.9,3.2L8,6.8  c0.3,0.4,0.8,0.6,1.2,0.3c0.4-0.2,0.6-0.8,0.3-1.2L7.4,2.4C7.2,1.9,6.7,1.8,6.2,2C5.8,2.3,5.7,2.8,5.9,3.2L5.9,3.2z M11.1,1.4  c0-0.5,0.4-0.9,0.9-0.9s0.9,0.4,0.9,0.9v4.1c0,0.5-0.4,0.9-0.9,0.9c-0.5,0-0.9-0.4-0.9-0.9V1.4z M16.5,2.4c0.3-0.4,0.8-0.6,1.2-0.3  c0.4,0.2,0.6,0.8,0.3,1.2L16,6.8c-0.2,0.4-0.8,0.6-1.2,0.3S14.2,6.4,14.5,6L16.5,2.4C16.5,2.4,16.5,2.4,16.5,2.4z M20.8,5.9L17.2,8  c-0.4,0.2-0.6,0.8-0.3,1.2c0.2,0.4,0.8,0.5,1.2,0.3l3.6-2.1c0.4-0.2,0.6-0.8,0.3-1.2C21.7,5.8,21.2,5.7,20.8,5.9  C20.8,5.9,20.8,5.9,20.8,5.9z M22.6,11.1c0.5,0,0.9,0.4,0.9,0.9c0,0.5-0.4,0.9-0.9,0.9h-4.2c-0.5,0-0.9-0.4-0.9-0.9  c0-0.5,0.4-0.9,0.9-0.9H22.6z"
+          />
         </svg>
       );
     };

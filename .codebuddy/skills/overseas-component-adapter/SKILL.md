@@ -11,7 +11,7 @@ description: This skill should be used when the user needs to adapt one or more 
 
 满足以下任意条件时激活此技能：
 
-1. **直接描述**：用户消息中提到"海外样式规范"、"海外样式改造"、"海外组件"、"overseas adaptation"、"overseas UI"、"overseas style"等关键字。
+1. **直接描述**：用户消息中提到"海外"、"overseas"、"海外样式规范"、"海外样式改造"、"海外组件"、"overseas adaptation"、"overseas UI"、"overseas style"等关键字。
 2. **截图/设计稿**：用户提供了海外风格 UI 组件的截图或设计规范，要求实现。
 3. **Spec 文档**：执行 `speckit.implement` 时，spec 文档描述中包含"海外样式"、"海外组件"、"overseas"等关键字。
 4. **明确请求**：用户明确要求将某个 TDesign 组件转换为海外样式。
