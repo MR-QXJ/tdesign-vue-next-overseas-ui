@@ -1,0 +1,32 @@
+---
+description: 
+alwaysApply: true
+enabled: true
+updatedAt: 2026-03-04T02:41:35.764Z
+provider: 
+---
+
+# speckit.implement 执行时必须检查 Skill 触发条件
+
+## 规则
+
+执行 `speckit.implement` 或类似实现命令时，在读取 `implementation/tasks.md` 文件**之后、开始编码之前**，**必须**执行以下检查流程：
+
+### 1. 扫描关键字
+
+检查 `tasks.md` 和 `spec.md` 的标题、任务描述、故事名称中是否包含以下关键字：
+
+- 海外、overseas、海外样式、overseas style、海外组件、overseas adaptation、overseas UI
+
+### 2. 检查文件路径
+
+检查任务中是否涉及创建或修改以下目录的文件：
+
+- `style/overseas/`
+- `overseas/` 全局样式目录
+
+### 3. 触发 Skill
+
+若上述任意一项匹配，**必须立即**通过 `use_skill` 工具加载 `overseas-component-adapter` skill，**然后再**继续执行实现任务。
+
+**禁止**在匹配条件满足时跳过 skill 加载直接编码。

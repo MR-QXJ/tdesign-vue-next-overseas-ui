@@ -1,6 +1,6 @@
 ---
 name: overseas-component-adapter
-description: This skill should be used when the user needs to adapt one or more TDesign Vue 3 components to overseas UI styles. It is triggered when the user provides screenshots, design specs, or text descriptions mentioning overseas styling (海外样式规范, 海外样式改造, 海外组件, overseas adaptation, overseas UI), or when executing speckit.implement on a spec document containing these keywords. The skill provides a complete workflow for migrating Vue 2 overseas TDesign component styles and logic to Vue 3, following the project's three-layer adaptation architecture.
+description: "MUST be loaded when ANY of these conditions is true: (1) The user message contains keywords: 海外, overseas, 海外样式, 海外组件, overseas adaptation, overseas UI, overseas style. (2) A spec document being implemented (via speckit.implement or similar) contains '海外' or 'overseas' in its tasks.md file — the AI MUST scan the tasks.md content after reading it and load this skill if matched. (3) The spec.md frontmatter or metadata contains 'skill: overseas-component-adapter'. (4) The task involves creating or modifying components under the TDesign overseas style system (style/overseas/ directories, overseas/ global styles). This skill provides the complete workflow for adapting TDesign Vue 3 components to overseas UI styles by migrating from the Vue 2 overseas component library."
 ---
 
 # 海外组件适配器
@@ -9,12 +9,16 @@ description: This skill should be used when the user needs to adapt one or more 
 
 ## 触发条件
 
+> ⚠️ **必须**：满足以下**任意一个**条件时，AI **必须**通过 `use_skill` 工具加载此技能，**不得跳过**。
+
 满足以下任意条件时激活此技能：
 
 1. **直接描述**：用户消息中提到"海外"、"overseas"、"海外样式规范"、"海外样式改造"、"海外组件"、"overseas adaptation"、"overseas UI"、"overseas style"等关键字。
 2. **截图/设计稿**：用户提供了海外风格 UI 组件的截图或设计规范，要求实现。
-3. **Spec 文档**：执行 `speckit.implement` 时，spec 文档描述中包含"海外样式"、"海外组件"、"overseas"等关键字。
-4. **明确请求**：用户明确要求将某个 TDesign 组件转换为海外样式。
+3. **Tasks 文档内容匹配**（关键）：执行 `speckit.implement` 或类似实现命令时，AI 在读取 `implementation/tasks.md` 文件后，**必须检查**任务列表的标题、任务描述、故事名称中是否包含"海外"、"overseas"、"海外样式"、"overseas style"等关键字。若匹配，**必须立即加载此 skill 后再继续实现**。
+4. **Spec 元信息绑定**：spec.md 的元信息表格中包含 `skill` 字段且值为 `overseas-component-adapter`。
+5. **文件路径匹配**：任务涉及创建或修改 `style/overseas/` 目录、`overseas/` 全局样式目录下的文件。
+6. **明确请求**：用户明确要求将某个 TDesign 组件转换为海外样式。
 
 ## 项目架构概览
 
@@ -137,7 +141,13 @@ description: This skill should be used when the user needs to adapt one or more 
    ├── style/
    │   ├── _variables.less          # 全局变量（优先在此维护）
    │   ├── base.less                # 基础样式入口
+   │   ├── mixins/
+   │   │   ├── _layout.less         # 布局 mixin
+   │   │   ├── _reset.less          # 重置 mixin
+   │   │   ├── _scrollbar.less      # 滚动条 mixin
+   │   │   └── _text.less           # 文本 mixin
    │   └── theme/
+   │       ├── _index.less          # 主题入口
    │       ├── _dark.less           # 深色主题
    │       ├── _font.less           # 字体
    │       ├── _light.less          # 浅色主题

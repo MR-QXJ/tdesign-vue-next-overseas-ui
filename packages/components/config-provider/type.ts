@@ -166,6 +166,10 @@ export interface GlobalConfigProvider {
    * 上传组件全局配置
    */
   upload?: UploadConfig;
+  /**
+   * 版权声明组件全局配置
+   */
+  copyright?: CopyrightConfig;
 }
 
 export interface AlertConfig {
@@ -1116,4 +1120,12 @@ export interface UploadTriggerUploadText {
   reupload?: string;
   continueUpload?: string;
   delete?: string;
+}
+
+export interface CopyrightConfig {
+  /**
+   * 版权声明的部门文本
+   * @default '腾讯公司 财经线-财经IT管理部'
+   */
+  deptText?: string;
 }
