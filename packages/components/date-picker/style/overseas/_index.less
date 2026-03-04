@@ -133,14 +133,12 @@
   }
 }
 
-.t-date-picker__header-controller-month-popup,
-.t-date-picker__header-controller-year-popup {
-  > .t-popup__content {
-    max-height: @datepicker-panel-select-max-width;
-    border-color: #fff;
-    border-radius: 8px !important;
-    // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
-  }
+.t-date-picker__header-controller-month-popup > .t-popup__content,
+.t-date-picker__header-controller-year-popup > .t-popup__content {
+  max-height: @datepicker-panel-select-max-width !important;
+  border-color: #fff !important;
+  border-radius: 8px !important;
+  // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) !important;
 }
 
 .t-date-picker__header-controller-year-popup > .t-popup__content {
@@ -186,7 +184,7 @@
 
     .t-button {
       background-color: var(--td-brand-color-10);
-      color: #fff;
+      color: #fff !important;
       border-radius: 50%;
 
       > svg {
@@ -272,7 +270,7 @@
 
   // 禁用 header 中按钮的涟漪效果
   button {
-    > div[style*="position: absolute"][style*="border-radius: 50%"] {
+    > div[style*='position: absolute'][style*='border-radius: 50%'] {
       display: none !important;
     }
   }
