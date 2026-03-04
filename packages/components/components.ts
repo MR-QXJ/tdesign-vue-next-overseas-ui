@@ -2,6 +2,7 @@
 export * from './button';
 export * from './icon';
 export * from './link';
+export * from './copyright';
 
 // 布局
 export * from './grid';
