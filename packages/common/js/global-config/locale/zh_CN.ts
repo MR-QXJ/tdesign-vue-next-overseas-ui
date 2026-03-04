@@ -265,4 +265,7 @@ export default {
     refreshText: '点击刷新',
     scannedText: '已扫描',
   },
+  copyright: {
+    deptText: '腾讯公司 财经线-财经IT管理部',
+  },
 } as const;

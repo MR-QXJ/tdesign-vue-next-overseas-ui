@@ -265,4 +265,7 @@ export default {
     refreshText: 'refresh',
     scannedText: 'scanned',
   },
+  copyright: {
+    deptText: 'Tencent S2-Finance Line/Financial IT Management Department',
+  },
 } as const;
