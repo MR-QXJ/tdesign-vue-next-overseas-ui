@@ -116,6 +116,14 @@ export const docs = [
         componentEn: () => import('@tdesign/components/link/link.en-US.md'),
       },
       {
+        title: 'Copyright 版权声明',
+        titleEn: 'Copyright',
+        name: 'copyright',
+        path: '/vue-next/components/copyright',
+        component: () => import('@tdesign/components/copyright/copyright.md'),
+        componentEn: () => import('@tdesign/components/copyright/copyright.en-US.md'),
+      },
+      {
         title: 'Typography 排版',
         titleEn: 'Typography',
         name: 'typography',
